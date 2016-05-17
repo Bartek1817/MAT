@@ -173,7 +173,8 @@ namespace QuantumConsole
 		
 		private static void ShoreAlgorithm(int N, int c, int a, int b) {
 			Console.WriteLine("Algorytm Shore'a");
-			int randomDivisor = new Random().Next(0, N);	
+			//int randomDivisor = new Random().Next(0, N);	
+			int randomDivisor = a;
 			int r = FindPeriod(N, randomDivisor);
 			
 			if(r % 2 == 0) {
@@ -191,14 +192,6 @@ namespace QuantumConsole
 			}
 		}
 		
-		private static void EveAlgorithm(int N, int c, int b) {
-			Console.WriteLine("Algorytm Eve.");
-			int r = FindPeriod(N, b);		// znajdujemy okres r = b^x mod N
-			int d = ModuleReverse(c, r);			// liczymy odwrotnosc modulo c w G_r
-			int decryptedMessage = (int) BigInteger.ModPow(b, d, N);		// wyliczamy wiadomosc ze wzoru b^d mod N
-			Console.WriteLine("Wiadomosc: {0}.", decryptedMessage);
-		}
-		
 		public static void Main() {
 			int N = 55;		// N = p*q
 			int c = 17;		// Klucz publiczny
@@ -207,16 +200,10 @@ namespace QuantumConsole
 		
 			Console.WriteLine("a = {0}", a);
 			Console.WriteLine("N = {0}", N);
-			Console.WriteLine("c = {0}", c);	
+			Console.WriteLine("c = {0}", c);
 			Console.WriteLine("b = {0}", b);			
 			
-			
-			if(BigInteger.GreatestCommonDivisor(N, b) != 1) { // Sprawdzamy warunek, że b jest bezwględnie pierwsza z N
-				ShoreAlgorithm(N, c, a, b);
-			}
-			else {
-				EveAlgorithm(N, c, b);
-			}
+			ShoreAlgorithm(N, c, a, b);
 			
 		}
 	}
